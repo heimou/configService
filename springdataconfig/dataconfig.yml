@@ -1,0 +1,19 @@
+server :
+ port : 8765
+
+#mysql数据库配置
+## 数据库连接池配置
+spring:
+  datasource:                           # 指定数据源
+   platform: mysql                        # 指定数据源类型
+   driverClassName: com.mysql.jdbc.Driver
+   url: jdbc:mysql://localhost:3306/test
+   username: root
+   password: 123456
+   maxActive: 90
+   maxIdle: 60
+   minIdle: 30
+   initialSize: 30
+   testWhileIdle: true
+   removeAbandoned: true
+   logAbandoned: true
