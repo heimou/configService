@@ -1,6 +1,8 @@
+spring:
+  application:
+    name: dataconfig
 server :
  port : 8765
-
 #mysql数据库配置
 ## 数据库连接池配置
 spring:
