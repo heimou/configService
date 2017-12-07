@@ -1,0 +1,42 @@
+
+# Eureka client
+spring:
+  application:
+    name: gateway
+server:
+  port: 8763
+eureka:
+  client:
+    serviceUrl:
+     defaultZone: http://eurekapeer1:8761/eureka/
+  instance:
+    prefer-ip-address: true # 设置为ip 模式
+    lease-renewal-interval-in-seconds: 30 # 续约更新时间间隔（默认30秒）
+    lease-expiration-duration-in-seconds : 10 # 续约到期时间（默认90秒）
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true   #熔断器打开
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000 # 熔断器时间
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 2
+  eureka:
+    enabled: true  # ribbon 客户端开启 。
+zuul:
+  routes:
+    webclient : # webclient 为注册中心的示例名 service_Id 若没有则保证路由中心唯一
+     path: /hello/**
+    api-a :
+     serviceId : webclient
+     path : /hi/**
+     url: http://webclient:8762/inter/getbadBoy #到具体的物理地址
+    api-b:     # 本地跳转
+      path : /api-b/**
+      url : forward:/hi
