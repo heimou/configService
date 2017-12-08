@@ -7,6 +7,7 @@ server :
 ## 数据库连接池配置
 spring:
   datasource:                           # 指定数据源
+   type: com.alibaba.druid.pool.DruidDataSource
    platform: mysql                        # 指定数据源类型
    driverClassName: com.mysql.jdbc.Driver
    url: jdbc:mysql://localhost:3306/test
@@ -19,3 +20,14 @@ spring:
    testWhileIdle: true
    removeAbandoned: true
    logAbandoned: true
+   maxWait: 60000 # 配置获取连接等待超时的时间
+   timeBetweenEvictionRunsMillis: 60000 # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+   filters: stat,wall,log4j
+
+#mybatis 配置
+mybatis:
+  type-aliases-package: com.ideal.pojo #实体类包路径
+  mapper-locations: classpath:mapper/*/*.xml #xml 配置路径
+  config-locations: classpath:mybatis/mybatis-config.xml #额外的配置
+
+
